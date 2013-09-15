@@ -3,29 +3,90 @@ body {
   background: #F6F6EF;
 }
 
-header {
-  margin: 100px 0;
-  font-family: 'Contrail One', cursive;
-  text-align: center;
+a {
+  color: #444;
 }
 
-header h1 {
-  margin: 0;
+a:hover {
+  color: #4355A9;
+}
+
+a, a:hover, a:active {
+  text-decoration: none;
+}
+
+h1 {
+  margin: 30px 0 0 0;
+  font-family: 'Contrail One', cursive;
+  text-align: center;
   font-size: 4em;
 }
 
-header h2 {
-  margin: 0;
-  font-size: 3em;
-  word-spacing: 4px;
+section {
+  text-align: center;
+  clear: both;
 }
 
-section {
+.contact {
+  margin: 30px 0 100px 0;
+}
+
+.contact a {
+  font-family: fontawesome;
+  font-size: 3em;
+  padding: 0 5px;
+}
+
+.content {
   margin: 100px 0;
+  /*background: #B6AD9F;*/
+  background: #9683A9;
+  height: 250px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.nav li {
+  display: inline-block;
+  vertical-align: top;
+  font-weight: bold;
+  padding: 10px;
+  font-size: 1.5em;
+}
+
+ul.nav li a {
+  color: #222;
+}
+
+ul.nav li a:hover,
+ul.nav li.active a {
+  color: #F2EFF6;
+}
+
+#list {
+  width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+#list li {
+  padding: 5px;
+}
+
+#list li:nth-child(even) {
+  /*background: #9683A9;*/
+}
+
+#list li:nth-child(odd) {
+  /*background: #E6D7F5;*/
 }
 
 footer {
-  margin-top: 100px;
+  margin: 100px 0 50px 0;
   color: #888;
   text-align: center;
   font-family: 'Contrail One', cursive;

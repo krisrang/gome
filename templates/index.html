@@ -13,26 +13,37 @@
   <link rel="stylesheet" href="/static/css/main.css">
 
   <link href='https://fonts.googleapis.com/css?family=Contrail+One|Roboto:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
   <!--[if lt IE 9]>
     <script src="/static/js/html5.js"></script>
   <![endif]-->
 </head>
 <body>
-  <header>
-    <h1>Kristjan Rang</h1>
-    <h2>The Relevant Bits</h2>
-  </header>
+  <h1>Kristjan Rang</h1>
 
-  <section>
-    <ul>
-      <li>What I'm Playing</li>
-      <li>What I'm Listening To</li>
-      <li>What I'm Hacking On</li>
-    </ul>
+  <section class="contact">
+    <a href="mailto:mail@rang.ee">&#xf0e0;</a>
+    <a href="https://github.com/krisrang">&#xf09b;</a>
   </section>
 
-  <footer>I'm not a designer</footer>
+  <section class="content">
+    <ul class="nav">
+      <li class="active"><a href="#playing">What I'm Playing</a></li>
+      <li><a href="#reading">What I'm Reading</a></li>
+      <li><a href="#listening">What I'm Listening To</a></li>
+      <li><a href="#hacking">What I'm Hacking On</a></li>
+    </ul>
+
+    <div id="list">
+      <ul>
+        <li>Odd</li>
+        <li>Even</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>Damn it, Jim! I'm a developer, not a designer!</footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="/static/js/jquery.js"><\/script>')</script>
