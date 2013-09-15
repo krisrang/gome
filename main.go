@@ -1,12 +1,15 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"text/template"
-	"time"
+
+	"github.com/krisrang/gome/updater"
 )
 
 const (
@@ -17,26 +20,28 @@ const (
 var (
 	port        = flag.String("port", "4000", "Port gome will run under")
 	versionflag = flag.Bool("version", false, "Print version")
+
+	config *Config
 )
 
 type PageData struct {
-	Title string
+	Config *Config
 }
 
-func setupUpdater() {
-	tick := time.Tick(15 * time.Minute)
-	for now := range tick {
-		fmt.Printf("%v\n", now)
-	}
+type Config struct {
+	Title       string
+	GAID        string
+	Description string
+	Author      string
 }
 
 func mainPage(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		http.Redirect(w, r, "/", http.StatusMovedPermanently)
+		http.Redirect(w, r, "/", http.StatusFound)
 		return
 	}
 
-	p := &PageData{Title: "test"}
+	p := &PageData{Config: config}
 	renderTemplate(w, "index.html", p)
 }
 
@@ -51,25 +56,50 @@ func renderTemplate(w http.ResponseWriter, tpl string, data *PageData) {
 	t.Execute(w, data)
 }
 
+func loadConfig() {
+	fmt.Println("Loading configuration")
+
+	conf := Config{}
+
+	file, err := ioutil.ReadFile("./config.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = json.Unmarshal(file, &conf)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	config = &conf
+
+	fmt.Printf("Loaded config %v\n", conf)
+}
+
+func setupServer() {
+	fmt.Println("Starting up http server on", *port)
+
+	http.HandleFunc("/", mainPage)
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
+	http.NotFoundHandler()
+
+	err := http.ListenAndServe(":"+*port, nil)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func main() {
 	flag.Parse()
 
 	if *versionflag {
 		fmt.Println("Gome version", VERSION, VERSIONFANCY)
 	} else {
-		fmt.Println("Setting up data updater and running first run")
-		go setupUpdater()
+		fmt.Println("Gome version", VERSION)
 
-		fmt.Println("Starting server on", *port)
-
-		http.HandleFunc("/", mainPage)
-		http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
-		http.NotFoundHandler()
-
-		err := http.ListenAndServe(":"+*port, nil)
-
-		if err != nil {
-			log.Fatal(err)
-		}
+		loadConfig()
+		go updater.SetupUpdater()
+		setupServer()
 	}
 }

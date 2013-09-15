@@ -1,0 +1,32 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #F6F6EF;
+}
+
+header {
+  margin: 100px 0;
+  font-family: 'Contrail One', cursive;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 4em;
+}
+
+header h2 {
+  margin: 0;
+  font-size: 3em;
+  word-spacing: 4px;
+}
+
+section {
+  margin: 100px 0;
+}
+
+footer {
+  margin-top: 100px;
+  color: #888;
+  text-align: center;
+  font-family: 'Contrail One', cursive;
+}
