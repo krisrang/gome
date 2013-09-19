@@ -22,6 +22,13 @@ h1 {
   font-size: 4em;
 }
 
+h2 {
+  margin: 0;
+  font-family: 'Contrail One', cursive;
+  text-align: center;
+  font-size: 2em;
+}
+
 section {
   text-align: center;
   clear: both;
@@ -37,11 +44,44 @@ section {
   padding: 0 5px;
 }
 
+.contact span {
+  display: none;
+}
+
 .content {
   margin: 100px 0;
-  /*background: #B6AD9F;*/
-  background: #9683A9;
-  height: 250px;
+  background: #B6AD9F;
+  /*background: #9683A9;*/
+  padding-bottom: 20px;
+}
+
+@media (max-width: 500px) {
+  .content,
+  footer {
+    display: none;
+  }
+
+  .contact a {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .contact span {
+    display: inline;
+  }
+}
+
+.tab-pane {
+  width: 500px;
+  margin: 0 auto;
+  border: 1px solid gold;
+}
+
+.tab-content > .tab-pane {
+  display: none;
+}
+.tab-content > .active {
+  display: block;
 }
 
 ul {
@@ -65,24 +105,6 @@ ul.nav li a {
 ul.nav li a:hover,
 ul.nav li.active a {
   color: #F2EFF6;
-}
-
-#list {
-  width: 900px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-#list li {
-  padding: 5px;
-}
-
-#list li:nth-child(even) {
-  /*background: #9683A9;*/
-}
-
-#list li:nth-child(odd) {
-  /*background: #E6D7F5;*/
 }
 
 footer {

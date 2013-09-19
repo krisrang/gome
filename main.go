@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	// "os"
+	"runtime"
 	"text/template"
 
 	"github.com/krisrang/gome/updater"
@@ -24,15 +26,16 @@ var (
 	config *Config
 )
 
-type PageData struct {
-	Config *Config
+type Config struct {
+	GAID string
+
+	LastfmUser string
+	LastfmKey  string
 }
 
-type Config struct {
-	Title       string
-	GAID        string
-	Description string
-	Author      string
+type PageData struct {
+	Config     *Config
+	LastfmUser *updater.LastfmUserInfo
 }
 
 func mainPage(w http.ResponseWriter, r *http.Request) {
@@ -41,8 +44,17 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	p := &PageData{Config: config}
+	p := &PageData{Config: config, LastfmUser: &updater.LastfmUserData.User}
 	renderTemplate(w, "index.html", p)
+}
+
+func statusPage(w http.ResponseWriter, r *http.Request) {
+	m := runtime.MemStats{}
+	runtime.ReadMemStats(&m)
+
+	// fmt.Fprintln(w, "PID:", os.Getpid())
+	fmt.Fprintln(w, "RAM: used", m.Alloc/1024, "allocated", m.Sys/1024)
+	fmt.Fprintln(w, "Last updater tick:", updater.LastTick)
 }
 
 func renderTemplate(w http.ResponseWriter, tpl string, data *PageData) {
@@ -56,7 +68,7 @@ func renderTemplate(w http.ResponseWriter, tpl string, data *PageData) {
 	t.Execute(w, data)
 }
 
-func loadConfig() {
+func loadConfig() *Config {
 	fmt.Println("Loading configuration")
 
 	conf := Config{}
@@ -71,17 +83,17 @@ func loadConfig() {
 		log.Fatal(err)
 	}
 
-	config = &conf
+	return &conf
 
-	fmt.Printf("Loaded config %v\n", conf)
+	// fmt.Printf("Loaded config %v\n", conf)
 }
 
 func setupServer() {
 	fmt.Println("Starting up http server on", *port)
 
-	http.HandleFunc("/", mainPage)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
-	http.NotFoundHandler()
+	http.HandleFunc("/status", statusPage)
+	http.HandleFunc("/", mainPage)
 
 	err := http.ListenAndServe(":"+*port, nil)
 
@@ -98,8 +110,8 @@ func main() {
 	} else {
 		fmt.Println("Gome version", VERSION)
 
-		loadConfig()
-		go updater.SetupUpdater()
+		config = loadConfig()
+		go updater.SetupUpdater(config)
 		setupServer()
 	}
 }

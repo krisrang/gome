@@ -9,7 +9,6 @@
   <meta name="viewport" content="width=device-width">
 
   <link rel="stylesheet" href="/static/css/normalize.css">
-  <link rel="stylesheet" href="/static/css/html5bp.css">
   <link rel="stylesheet" href="/static/css/main.css">
 
   <link href='https://fonts.googleapis.com/css?family=Contrail+One|Roboto:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
@@ -21,25 +20,34 @@
 </head>
 <body>
   <h1>Kristjan Rang</h1>
+  <h2>Software Engineer</h2>
 
   <section class="contact">
-    <a href="mailto:mail@rang.ee">&#xf0e0;</a>
-    <a href="https://github.com/krisrang">&#xf09b;</a>
+    <a href="mailto:mail@rang.ee">&#xf0e0;<span> Email</span></a>
+    <a href="https://github.com/krisrang">&#xf09b;<span> Github</span></a>
   </section>
 
   <section class="content">
-    <ul class="nav">
-      <li class="active"><a href="#playing">What I'm Playing</a></li>
-      <li><a href="#reading">What I'm Reading</a></li>
-      <li><a href="#listening">What I'm Listening To</a></li>
-      <li><a href="#hacking">What I'm Hacking On</a></li>
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#listening" data-toggle="tab">Listening</a></li>
+      <li><a href="#hacking" data-toggle="tab">Hacking</a></li>
+      <li><a href="#playing" data-toggle="tab">Playing</a></li>
+      <li><a href="#reading" data-toggle="tab">Reading</a></li>
     </ul>
 
-    <div id="list">
-      <ul>
-        <li>Odd</li>
-        <li>Even</li>
-      </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="listening">
+        {{.LastfmUser.Name}}
+      </div>
+      <div class="tab-pane" id="hacking">
+        
+      </div>
+      <div class="tab-pane" id="playing">
+        
+      </div>
+      <div class="tab-pane" id="reading">
+        
+      </div>
     </div>
   </section>
 
@@ -47,7 +55,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="/static/js/jquery.js"><\/script>')</script>
-
+<script src="/static/js/bootstrap.js"></script>
 <script src="/static/js/main.js"></script>
 
 <script>
