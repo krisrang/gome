@@ -147,4 +147,6 @@ func lastfmTracksUpdate(user string, key string) {
 
 	data := getRequest(uri)
 	jsonUnmarshal(data, LastfmTrackData)
+
+	LastfmTrackData.Tracks.Tracks = LastfmTrackData.Tracks.Tracks[:10]
 }

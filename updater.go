@@ -32,4 +32,5 @@ func tock(now time.Time) {
 	clients.GithubUpdate(config.GithubToken)
 
 	LastTick = time.Now()
+	fmt.Println("Finished update", time.Now())
 }
