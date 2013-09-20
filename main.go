@@ -8,10 +8,10 @@ import (
 	"log"
 	"net/http"
 	// "os"
+	"html/template"
 	"runtime"
-	"text/template"
 
-	"github.com/krisrang/gome/updater"
+	"github.com/krisrang/gome/clients"
 )
 
 const (
@@ -34,8 +34,9 @@ type Config struct {
 }
 
 type PageData struct {
-	Config     *Config
-	LastfmUser *updater.LastfmUserInfo
+	Config       *Config
+	LastfmUser   *clients.LastfmUserInfo
+	LastfmTracks *[]clients.LastfmTrack
 }
 
 func mainPage(w http.ResponseWriter, r *http.Request) {
@@ -44,7 +45,11 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	p := &PageData{Config: config, LastfmUser: &updater.LastfmUserData.User}
+	p := &PageData{
+		Config:       config,
+		LastfmUser:   &clients.LastfmUserData.User,
+		LastfmTracks: &clients.LastfmTrackData.Tracks.Tracks,
+	}
 	renderTemplate(w, "index.html", p)
 }
 
@@ -54,7 +59,7 @@ func statusPage(w http.ResponseWriter, r *http.Request) {
 
 	// fmt.Fprintln(w, "PID:", os.Getpid())
 	fmt.Fprintln(w, "RAM: used", m.Alloc/1024, "allocated", m.Sys/1024)
-	fmt.Fprintln(w, "Last updater tick:", updater.LastTick)
+	fmt.Fprintln(w, "Last updater tick:", LastTick)
 }
 
 func renderTemplate(w http.ResponseWriter, tpl string, data *PageData) {
@@ -111,7 +116,7 @@ func main() {
 		fmt.Println("Gome version", VERSION)
 
 		config = loadConfig()
-		go updater.SetupUpdater(config)
+		go setupUpdater()
 		setupServer()
 	}
 }

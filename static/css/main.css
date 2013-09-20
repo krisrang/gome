@@ -15,14 +15,14 @@ a, a:hover, a:active {
   text-decoration: none;
 }
 
-h1 {
+header h1 {
   margin: 30px 0 0 0;
   font-family: 'Contrail One', cursive;
   text-align: center;
   font-size: 4em;
 }
 
-h2 {
+header h2 {
   margin: 0;
   font-family: 'Contrail One', cursive;
   text-align: center;
@@ -55,7 +55,7 @@ section {
   padding-bottom: 20px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 520px) {
   .content,
   footer {
     display: none;
@@ -74,14 +74,10 @@ section {
 .tab-pane {
   width: 500px;
   margin: 0 auto;
-  border: 1px solid gold;
-}
-
-.tab-content > .tab-pane {
-  display: none;
-}
-.tab-content > .active {
-  display: block;
+  text-align: left;
+  background: #FFF;
+  border-radius: 3px;
+  padding: 5px;
 }
 
 ul {
@@ -105,6 +101,66 @@ ul.nav li a {
 ul.nav li a:hover,
 ul.nav li.active a {
   color: #F2EFF6;
+}
+
+#listening .user img {
+  float: right;
+  height: 100px;
+  border: 1px solid #C2C2C2;
+}
+
+#listening .user h2 {
+  margin: 0;
+  font-size: 26px;
+}
+
+#listening .user p {
+  color: #666;
+}
+
+#listening .user a {
+  margin-top: 10px;
+}
+
+#listening .tracks {
+  margin: 20px 0 0;
+}
+
+#listening .tracks li {
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid #C2C2C2;
+}
+
+#listening .tracks li:last-child {
+  border-bottom: none;
+}
+
+#listening .tracks li:hover {
+  background: #EEE;
+}
+
+#listening .tracks li a {
+  width: 375px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#listening .tracks li a:hover {
+  text-decoration: underline;
+}
+
+#listening .tracks li img {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #C2C2C2;
+}
+
+#listening .tracks li date {
+  float: right;
+  color: #888;
+  padding-top: 5px;
 }
 
 footer {
