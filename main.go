@@ -37,6 +37,9 @@ type Config struct {
 	GithubToken string
 
 	SteamUser string
+
+	GoodreadsKey    string
+	GoodreadsSecret string
 }
 
 type PageData struct {

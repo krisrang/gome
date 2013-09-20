@@ -27,6 +27,7 @@ func setupTimer() {
 func tock(now time.Time) {
 	fmt.Println("Running update", now)
 
+	clients.GoodreadsUpdate(config.GoodreadsKey, config.GoodreadsSecret)
 	clients.SteamUpdate(config.SteamUser)
 	clients.LastfmUpdate(config.LastfmUser, config.LastfmKey)
 	clients.GithubUpdate(config.GithubToken)
