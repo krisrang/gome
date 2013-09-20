@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/static/css/bootstrap.css">
   <link rel="stylesheet" href="/static/css/main.css">
 
-  <link href='https://fonts.googleapis.com/css?family=Contrail+One|Roboto:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Contrail+One|Roboto:400,700' rel='stylesheet' type='text/css'>
   <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
   <!--[if lt IE 9]>
@@ -31,40 +31,146 @@
 
   <section class="content">
     <ul class="nav nav-tabs">
-      <li class="active"><a href="#listening" data-toggle="tab">Listening</a></li>
-      <li><a href="#hacking" data-toggle="tab">Hacking</a></li>
-      <li><a href="#playing" data-toggle="tab">Playing</a></li>
-      <li><a href="#reading" data-toggle="tab">Reading</a></li>
+      <li><a href="#listening" data-toggle="tab">Last.fm</a></li>
+      <li><a href="#hacking" data-toggle="tab">Github</a></li>
+      <li class="active"><a href="#playing" data-toggle="tab">Steam</a></li>
+      <li><a href="#reading" data-toggle="tab">Goodreads</a></li>
     </ul>
 
-    <div class="tab-content">
-      <div class="tab-pane active" id="listening">
-        <div class="user">
-          <img src="{{.LastfmUser.GetImage}}"></img>
+    <div class="tab-outer listening">
+      <div class="tab-content">
 
-          <h2>{{.LastfmUser.Name}}</h2>
-          <p>{{.LastfmUser.PlayCount}} plays since {{.LastfmUser.Registered.ShortDate}}</p>
-          <a href="{{.LastfmUser.URL}}" class="btn btn-danger btn-s">Last.fm profile</a>
+        <div class="tab-pane" id="listening">
+          <div class="profile-info">
+            <a href="{{.LastfmUser.URL}}" class="profile-avatar">
+              <img src="{{.LastfmUser.GetImage}}"></img>
+            </a>
+            <div class="profile-name">
+              <h2><a href="{{.LastfmUser.URL}}">{{.LastfmUser.Name}}</a></h2>
+              <h3>&nbsp;</h3>
+            </div>
+
+            <p class="profile-location-url">
+              <span>{{.LastfmUser.Country}}</span>
+              <span class="divider">·</span>
+              <span>Registered {{.LastfmUser.Registered.ShortDate}}</span>
+            </p>
+          </div>
+
+          <ul class="profile-stats">
+            <li><a href="{{.LastfmUser.URL}}"><strong>{{.LastfmUser.PlayCount}}</strong> plays</a></li>
+          </ul>
+
+          <div class="profile-info-footer">
+            <a href="{{.LastfmUser.URL}}" class="btn btn-danger btn-s">Last.fm profile</a>
+          </div>
+          
+          <ul class="profile-tracks">
+            {{range .LastfmTracks}}
+              <li>
+                <img src="{{.GetImage}}"></img>
+                <a href="{{.URL}}">{{.Artist.Name}} - {{.Name}}</a>
+                <date>
+                {{ if .IsNowPlaying }}
+                  Now playing
+                {{else}}
+                  {{.Date.RelativeDate}}
+                {{end}}
+                </date>
+              </li>
+            {{end}}
+          </ul>
         </div>
-        
-        <ul class="tracks">
-          {{range .LastfmTracks}}
-            <li>
-              <img src="{{.GetImage}}"></img>
-              <a href="{{.URL}}">{{.Artist.Name}} - {{.Name}}</a>
-              <date>{{.Date.ShortDate}}</date>
-            </li>
-          {{end}}
-        </ul>
-      </div>
-      <div class="tab-pane" id="hacking">
-        
-      </div>
-      <div class="tab-pane" id="playing">
-        
-      </div>
-      <div class="tab-pane" id="reading">
-        
+
+        <div class="tab-pane" id="hacking">
+          <div class="profile-info">
+            <a href="{{.GithubUser.URL}}" class="profile-avatar">
+              <img src="{{.GithubUser.AvatarURL}}"></img>
+            </a>
+            <div class="profile-name">
+              <h2><a href="{{.GithubUser.URL}}">{{.GithubUser.Name}}</a></h2>
+              <h3><a href="{{.GithubUser.URL}}">{{.GithubUser.Login}}</a></h3>
+            </div>
+
+            <p class="profile-location-url">
+              <span>{{.GithubUser.Location}}</span>
+              <span class="divider">·</span>
+              <span><a href="{{.GithubUser.Blog}}">{{.GithubUser.Blog}}</a></span>
+            </p>
+          </div>
+
+          <ul class="profile-stats">
+            <li><a href="{{.GithubUser.URL}}"><strong>{{.GithubUser.PublicRepos}}</strong> repos</a></li>
+            <li><a href="{{.GithubUser.URL}}/following"><strong>{{.GithubUser.Following}}</strong> following</a></li>
+            <li><a href="{{.GithubUser.URL}}/followers"><strong>{{.GithubUser.Followers}}</strong> followers</a></li>
+          </ul>
+
+          <div class="profile-info-footer">
+            <a href="{{.GithubUser.URL}}" class="btn btn-info btn-s">Github profile</a>
+          </div>
+
+          <ul class="profile-repos">
+            {{range .GithubRepos}}
+              <li>
+                <a href="{{.HTMLURL}}" class="profile-repo-name">{{.Name}}</a>
+                <p class="profile-repo-text">{{.Description}}</p>
+                <ul class="profile-repo-stats">
+                  <li>{{.Language}}</li>
+                  <li><a href="{{.URL}}/watchers" class="profile-watchers">{{.WatchersCount}}</a></li>
+                  <li><a href="{{.URL}}/network" class="profile-forks">{{.ForksCount}}</a></li>
+                </ul>
+              </li>
+            {{end}}
+          </ul>
+        </div>
+
+        <div class="tab-pane active" id="playing">
+          <div class="profile-info">
+            <a href="{{.SteamUser.FullURL}}" class="profile-avatar">
+              <img src="{{.SteamUser.AvatarFull}}"></img>
+            </a>
+            <div class="profile-name">
+              <h2><a href="{{.SteamUser.FullURL}}">{{.SteamUser.SteamID}}</a></h2>
+              <h3>&nbsp;</h3>
+            </div>
+
+            <p class="profile-location-url">
+              <span>{{.SteamUser.Location}}</span>
+              <span class="divider">·</span>
+              <span>{{.SteamUser.Summary}}</span>
+            </p>
+          </div>
+
+          <ul class="profile-stats">
+            <li><a href="{{.SteamUser.FullURL}}/games"><strong>{{.SteamUser.GameCount}}</strong> games</a></li>
+            <li><a href="{{.SteamUser.FullURL}}"><strong>{{.SteamUser.HoursPlayed2Wk}}</strong> hours played last 2 weeks</a></li>
+            <li><a href="{{.SteamUser.FullURL}}"><strong>{{.SteamUser.RatingDescription}}</strong> steam rating</a></li>
+          </ul>
+
+          <div class="profile-info-footer">
+            <a href="{{.SteamUser.FullURL}}" class="btn btn-steam btn-s">Steam profile</a>
+          </div>
+
+          <ul class="profile-games">
+            {{range .SteamGames.Games}}
+              <li>
+                <a href="{{.StoreLink}}" class="profile-game-logo"><img src="{{.Logo}}"></img></a>
+                <a href="{{.StoreLink}}" class="profile-game-name">{{.Name}}</a>
+                <p class="profile-game-stats">
+                {{if .HoursLast2Weeks}}
+                  {{.HoursLast2Weeks}} hrs played last 2 weeks
+                {{else}}
+                  {{.HoursOnRecord}} hrs played total
+                {{end}}
+                </p>
+              </li>
+            {{end}}
+          </ul>
+        </div>
+
+        <div class="tab-pane" id="reading">
+          
+        </div>
       </div>
     </div>
   </section>

@@ -12,6 +12,8 @@ import (
 	"runtime"
 
 	"github.com/krisrang/gome/clients"
+
+	"github.com/google/go-github/github"
 )
 
 const (
@@ -31,12 +33,23 @@ type Config struct {
 
 	LastfmUser string
 	LastfmKey  string
+
+	GithubToken string
+
+	SteamUser string
 }
 
 type PageData struct {
-	Config       *Config
+	Config *Config
+
 	LastfmUser   *clients.LastfmUserInfo
 	LastfmTracks *[]clients.LastfmTrack
+
+	GithubUser  *github.User
+	GithubRepos *[]github.Repository
+
+	SteamUser  *clients.SteamUser
+	SteamGames *clients.SteamGamesList
 }
 
 func mainPage(w http.ResponseWriter, r *http.Request) {
@@ -49,6 +62,10 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 		Config:       config,
 		LastfmUser:   &clients.LastfmUserData.User,
 		LastfmTracks: &clients.LastfmTrackData.Tracks.Tracks,
+		GithubUser:   clients.GithubUser,
+		GithubRepos:  clients.GithubRepos,
+		SteamUser:    clients.SteamUserData,
+		SteamGames:   clients.SteamGamesData,
 	}
 	renderTemplate(w, "index.html", p)
 }

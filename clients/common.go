@@ -2,6 +2,7 @@ package clients
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -24,6 +25,13 @@ func getRequest(uri string) []byte {
 
 func jsonUnmarshal(b []byte, i interface{}) {
 	err := json.Unmarshal(b, i)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func xmlUnmarshal(b []byte, i interface{}) {
+	err := xml.Unmarshal(b, i)
 	if err != nil {
 		log.Fatal(err)
 	}

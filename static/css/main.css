@@ -34,6 +34,8 @@ section {
   clear: both;
 }
 
+/* CONTACT */
+
 .contact {
   margin: 30px 0 100px 0;
 }
@@ -48,10 +50,36 @@ section {
   display: none;
 }
 
+/* NAV BAR */
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul.nav li {
+  display: inline-block;
+  vertical-align: top;
+  font-weight: bold;
+  padding: 10px;
+  font-size: 1.5em;
+}
+
+ul.nav li a {
+  color: #888;
+}
+
+ul.nav li a:hover,
+ul.nav li.active a {
+  color: #000;
+}
+
+/* CONTENT */
+
 .content {
   margin: 100px 0;
-  background: #B6AD9F;
-  /*background: #9683A9;*/
+  background: #e9e9e9 url('/static/img/b.png');
   padding-bottom: 20px;
 }
 
@@ -71,97 +99,284 @@ section {
   }
 }
 
-.tab-pane {
-  width: 500px;
+.tab-outer {
+  width: 510px;
   margin: 0 auto;
+  position: relative;
+}
+
+.tab-outer:before {
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  color: #444;
+  border: 10px solid rgba(0,0,0,0.5);
+  border-width: 0 10px 10px 10px;
+  border-color: rgba(0,0,0,0) rgba(0,0,0,0) rgba(0,0,0,0.5) rgba(0,0,0,0);
+  position: absolute;
+  left: 100px;
+  top: -10px;
+}
+
+.tab-outer.listening:before { left: 100px; }
+.tab-outer.hacking:before { left: 190px; }
+.tab-outer.playing:before { left: 270px; }
+.tab-outer.reading:before { left: 370px; }
+
+.tab-content {
+  width: 500px;
+  margin: 5px auto;
+}
+
+.tab-content a:hover {
+  color: #d75701;
+}
+
+.tab-pane {
   text-align: left;
   background: #FFF;
-  border-radius: 3px;
-  padding: 5px;
+  border-radius: 0px;
+
+  box-shadow: 0 0 7px rgba(0,0,0,0.5)
 }
 
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.profile-info {
+  position: relative;
+  padding: 15px;
+  background: #fff;
 }
 
-ul.nav li {
+.profile-avatar {
   display: inline-block;
-  vertical-align: top;
+  float: left;
+  }
+
+.profile-avatar img {
+  height: 52px;
+  width: 52px;
+  border: 2px solid #d75701;
+}
+
+.profile-name {
+  display: block;
+  float: left;
+  margin: 0 0 10px 10px;
+}
+
+.profile-name h2 {
+  font-size: 22px;
+  line-height: 30px;
+}
+
+.profile-name h2 a {
   font-weight: bold;
-  padding: 10px;
-  font-size: 1.5em;
+  color: #404040;
 }
 
-ul.nav li a {
-  color: #222;
-}
-
-ul.nav li a:hover,
-ul.nav li.active a {
-  color: #F2EFF6;
-}
-
-#listening .user img {
-  float: right;
-  height: 100px;
-  border: 1px solid #C2C2C2;
-}
-
-#listening .user h2 {
+.profile-name h2, 
+.profile-name h3 {
   margin: 0;
-  font-size: 26px;
+  font-weight: normal;
 }
 
-#listening .user p {
-  color: #666;
+.profile-name h3 a {
+  color: #777;
 }
 
-#listening .user a {
-  margin-top: 10px;
-}
-
-#listening .tracks {
-  margin: 20px 0 0;
-}
-
-#listening .tracks li {
+.profile-location-url {
+  clear: left;
   margin: 0;
-  padding: 0;
+}
+
+.profile-location-url span {
+  display: inline-block;
+  font-size: 13px;
+  line-height: 18px;
+  color: #777;
+}
+
+.profile-location-url .divider {
+  padding: 0 4px;
+  color: #ccc;
+}
+
+.profile-stats {
+  margin: 0;
+  list-style: none;
+  overflow: hidden;
+  border-top: 1px solid #c2c2c2;
+  border-bottom: 1px solid #c2c2c2;
+  background: #fff;
+}
+
+.profile-stats li {
+  display: inline;
+}
+
+.profile-stats li a,
+.profile-stats li span {
+  float: left;
+  padding: 7px 15px;
+  color: #777;
+  font-size: 10px;
+  line-height: 16px;
+  text-transform: uppercase;
+  border-left: 1px solid #c2c2c2;
+}
+
+.profile-stats li:first-child a,
+.profile-stats li:first-child span {
+  border-left: none;
+}
+
+.profile-stats li strong {
+  display: block;
+  color: #404040;
+  font-size: 14px;
+}
+
+.profile-info-footer {
+  background: #e9e9e9;
+  padding: 10px 15px;
+  border-bottom: 1px solid #c2c2c2;
+}
+
+.profile-info-footer a.btn:hover {
+  color: #FFF;
+}
+
+/* LASTFM */
+
+.profile-tracks {
+  margin: 5px 0;
+}
+
+.profile-tracks li {
+  margin: 0;
+  padding: 5px;
   border-bottom: 1px solid #C2C2C2;
 }
 
-#listening .tracks li:last-child {
+.profile-tracks li:last-child {
   border-bottom: none;
 }
 
-#listening .tracks li:hover {
-  background: #EEE;
+.profile-tracks li img {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #C2C2C2;
+  float: left;
 }
 
-#listening .tracks li a {
-  width: 375px;
+.profile-tracks li a {
+  width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 50px;
+  display: block;
+}
+
+.profile-tracks li a:hover {
+  text-decoration: underline;
+}
+
+.profile-tracks li date {
+  display: block;
+  color: #888;
+  margin-left: 50px;
+}
+
+/* GITHUB */
+
+.profile-repos li {
+  padding: 10px 15px;
+  border-bottom: 1px solid #c2c2c2;
+}
+
+.profile-repo-name {
+  font-weight: bold;
+}
+
+.profile-repo-text {
+  color: #777;
+  margin: 0;
+  padding: 5px 0;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.profile-repo-stats {
+  list-style: none;
+  margin: 0;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.profile-repo-stats li {
+  padding: 0;
+  border: 0;
+  display: inline-block;
+  zoom: 1;
+}
+
+.profile-watchers {
+  display: inline-block;
+  background: url('/static/img/ico-watchers.png') no-repeat;
+  margin-left: 10px;
+  padding-left: 20px;
+}
+
+.profile-forks {
+  display: inline-block;
+  background: url('/static/img/ico-forks.png') no-repeat;
+  margin-left: 10px;
+  padding-left: 20px;
+}
+
+/* STEAM */
+
+.btn-steam {
+  color: #ffffff;
+  background-color: #AAA;
+  border-color: #888;
+}
+
+.btn-steam:hover {
+  background-color: #888;
+  border-color: #444;
+}
+
+.profile-games li {
+  padding: 10px 15px;
+  border-bottom: 1px solid #c2c2c2;
+  height: 90px;
+}
+
+.profile-game-logo {
+  float: left;
+  clear: both;
+  border: 1px solid #888;
+}
+
+.profile-game-name {
+  font-weight: bold;
+  margin-left: 190px;
+  display: block;
+  width: 270px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#listening .tracks li a:hover {
-  text-decoration: underline;
-}
-
-#listening .tracks li img {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #C2C2C2;
-}
-
-#listening .tracks li date {
-  float: right;
+.profile-game-stats {
+  margin-left: 190px;
   color: #888;
-  padding-top: 5px;
 }
+
+
+/* FOOTER */
 
 footer {
   margin: 100px 0 50px 0;

@@ -6,10 +6,10 @@ import (
 )
 
 var (
-	LastfmUserData  LastfmUser   // primary export
-	LastfmTrackData LastfmTracks // primary export
+	LastfmUserData  *LastfmUser   // primary export
+	LastfmTrackData *LastfmTracks // primary export
 
-	apiRoot = "http://ws.audioscrobbler.com/2.0"
+	lastfmApiRoot = "http://ws.audioscrobbler.com/2.0"
 )
 
 type LastfmUser struct {
@@ -21,6 +21,7 @@ type LastfmUserInfo struct {
 	Realname   string
 	URL        string
 	PlayCount  string
+	Country    string
 	Image      []LastfmImage
 	Registered LastfmDate
 }
@@ -43,8 +44,17 @@ type LastfmTrack struct {
 	Name   string
 	URL    string
 	MBID   string
+	NP     LastfmNowPlaying `json:"@attr"`
 	Image  []LastfmImage
 	Date   LastfmDate
+}
+
+func (t LastfmTrack) IsNowPlaying() bool {
+	return t.NP.NowPlaying == "true"
+}
+
+type LastfmNowPlaying struct {
+	NowPlaying string
 }
 
 func (t LastfmTrack) GetImage() string {
@@ -88,6 +98,35 @@ func (d LastfmDate) ShortDate() string {
 	return (string)(date.Format("2 Jan 2006"))
 }
 
+func (d LastfmDate) RelativeDate() string {
+	date, err := d.ParseDate()
+	if err != nil {
+		fmt.Println(err)
+		return ""
+	}
+
+	s := time.Now().Sub(date)
+
+	days := int(s / (24 * time.Hour))
+	if days > 1 {
+		return fmt.Sprintf("%v days ago", days)
+	} else if days == 1 {
+		return fmt.Sprintf("%v day ago", days)
+	}
+
+	hours := int(s / time.Hour)
+	if hours > 1 {
+		return fmt.Sprintf("%v hours ago", hours)
+	}
+
+	minutes := int(s / time.Minute)
+	if minutes > 2 {
+		return fmt.Sprintf("%v minutes ago", minutes)
+	} else {
+		return "Just now"
+	}
+}
+
 func LastfmUpdate(user string, key string) {
 	lastfmUserUpdate(user, key)
 	lastfmTracksUpdate(user, key)
@@ -95,19 +134,17 @@ func LastfmUpdate(user string, key string) {
 }
 
 func lastfmUserUpdate(user string, key string) {
-	uri := apiRoot + "?method=user.getinfo&format=json&user=" + user + "&api_key=" + key
-	LastfmUserData = LastfmUser{}
+	uri := lastfmApiRoot + "?method=user.getinfo&format=json&user=" + user + "&api_key=" + key
+	LastfmUserData = &LastfmUser{}
 
 	data := getRequest(uri)
-	jsonUnmarshal(data, &LastfmUserData)
+	jsonUnmarshal(data, LastfmUserData)
 }
 
 func lastfmTracksUpdate(user string, key string) {
-	uri := apiRoot + "?method=user.getrecenttracks&format=json&user=" + user + "&api_key=" + key
-	LastfmTrackData = LastfmTracks{}
+	uri := lastfmApiRoot + "?method=user.getrecenttracks&format=json&user=" + user + "&api_key=" + key
+	LastfmTrackData = &LastfmTracks{}
 
 	data := getRequest(uri)
-	jsonUnmarshal(data, &LastfmTrackData)
-
-	// fmt.Printf("%s\n", LastfmTrackData)
+	jsonUnmarshal(data, LastfmTrackData)
 }
