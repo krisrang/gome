@@ -21,7 +21,7 @@ func GithubUpdate(token string) {
 	client := github.NewClient(t.Client())
 	user, _, _ := client.Users.Get("")
 	repos, _, _ := client.Repositories.List("", &github.RepositoryListOptions{Type: "public"})
-	repos = repos[:10]
+	repos = repos[:5]
 
 	GithubUser = user
 	GithubRepos = &repos

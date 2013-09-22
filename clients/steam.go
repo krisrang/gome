@@ -139,7 +139,7 @@ func SteamUpdate(user string) {
 
 	sortedGames := append(playedLast2Weeks, notPlayedLastWeeks...)
 
-	SteamGamesData.Games = sortedGames[:10]
+	SteamGamesData.Games = sortedGames[:5]
 
 	fmt.Println("Steam updated", time.Now())
 }
