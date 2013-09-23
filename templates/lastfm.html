@@ -1,0 +1,41 @@
+<div class="profile-info">
+  <a href="{{.LastfmUser.URL}}" class="profile-avatar">
+    <img src="{{.LastfmUser.GetImage}}"></img>
+  </a>
+  <div class="profile-name">
+    <h2><a href="{{.LastfmUser.URL}}">{{.LastfmUser.Name}}</a></h2>
+    <h3>&nbsp;</h3>
+  </div>
+
+  <p class="profile-location-url">
+    <span>{{.LastfmUser.Country}}</span>
+    <span class="divider">·</span>
+    <span>Registered {{.LastfmUser.Registered.ShortDate}}</span>
+  </p>
+</div>
+
+<ul class="profile-stats">
+  <li><a href="{{.LastfmUser.URL}}"><strong>{{.LastfmUser.PlayCount}}</strong> plays</a></li>
+</ul>
+
+<div class="profile-info-footer">
+  <a href="{{.LastfmUser.URL}}" class="btn btn-danger btn-s">Last.fm profile</a>
+</div>
+
+{{if .LastfmTracks}}
+<ul class="profile-tracks">
+  {{range .LastfmTracks}}
+    <li>
+      <img src="{{.GetImage}}"></img>
+      <a href="{{.URL}}">{{.Artist.Name}} - {{.Name}}</a>
+      <date>
+      {{ if .IsNowPlaying }}
+        Now playing
+      {{else}}
+        {{.Date.RelativeDate}}
+      {{end}}
+      </date>
+    </li>
+  {{end}}
+</ul>
+{{end}}

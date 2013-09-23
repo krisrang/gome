@@ -4,14 +4,15 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
-	// "os"
-	"html/template"
 	"runtime"
 
-	"github.com/krisrang/gome/clients"
+	"github.com/krisrang/go-goodreads"
+	"github.com/krisrang/go-lastfm"
+	"github.com/krisrang/go-steam"
 
 	"github.com/google/go-github/github"
 )
@@ -29,7 +30,8 @@ var (
 )
 
 type Config struct {
-	GAID string
+	GAID        string
+	ClientLimit int
 
 	LastfmUser string
 	LastfmKey  string
@@ -38,21 +40,23 @@ type Config struct {
 
 	SteamUser string
 
-	GoodreadsKey    string
-	GoodreadsSecret string
+	GoodreadsId  string
+	GoodreadsKey string
 }
 
 type PageData struct {
 	Config *Config
 
-	LastfmUser   *clients.LastfmUserInfo
-	LastfmTracks *[]clients.LastfmTrack
+	LastfmUser   *lastfm.UserInfo
+	LastfmTracks *[]lastfm.Track
 
 	GithubUser  *github.User
 	GithubRepos *[]github.Repository
 
-	SteamUser  *clients.SteamUser
-	SteamGames *clients.SteamGamesList
+	SteamUser  *steam.User
+	SteamGames *steam.GamesList
+
+	GoodreadsUser *goodreads.User
 }
 
 func mainPage(w http.ResponseWriter, r *http.Request) {
@@ -62,13 +66,14 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	p := &PageData{
-		Config:       config,
-		LastfmUser:   &clients.LastfmUserData.User,
-		LastfmTracks: &clients.LastfmTrackData.Tracks.Tracks,
-		GithubUser:   clients.GithubUser,
-		GithubRepos:  clients.GithubRepos,
-		SteamUser:    clients.SteamUserData,
-		SteamGames:   clients.SteamGamesData,
+		Config:        config,
+		LastfmUser:    LastfmUser,
+		LastfmTracks:  LastfmTracks,
+		GithubUser:    GithubUser,
+		GithubRepos:   GithubRepos,
+		SteamUser:     SteamUser,
+		SteamGames:    SteamGames,
+		GoodreadsUser: GoodreadsUser,
 	}
 	renderTemplate(w, "index.html", p)
 }
@@ -77,13 +82,14 @@ func statusPage(w http.ResponseWriter, r *http.Request) {
 	m := runtime.MemStats{}
 	runtime.ReadMemStats(&m)
 
-	// fmt.Fprintln(w, "PID:", os.Getpid())
 	fmt.Fprintln(w, "RAM: used", m.Alloc/1024, "allocated", m.Sys/1024)
 	fmt.Fprintln(w, "Last updater tick:", LastTick)
 }
 
 func renderTemplate(w http.ResponseWriter, tpl string, data *PageData) {
-	t, err := template.ParseFiles("templates/" + tpl)
+	t, err := template.ParseFiles("templates/"+tpl,
+		"templates/lastfm.html", "templates/github.html",
+		"templates/steam.html", "templates/goodreads.html")
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -109,8 +115,6 @@ func loadConfig() *Config {
 	}
 
 	return &conf
-
-	// fmt.Printf("Loaded config %v\n", conf)
 }
 
 func setupServer() {

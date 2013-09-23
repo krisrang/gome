@@ -1,0 +1,23 @@
+<div class="profile-info">
+  <a href="{{.GoodreadsUser.Link}}" class="profile-avatar">
+    <img src="{{.GoodreadsUser.ImageURL}}"></img>
+  </a>
+  <div class="profile-name">
+    <h2><a href="{{.GoodreadsUser.Link}}">{{.GoodreadsUser.Name}}</a></h2>
+    <h3>&nbsp;</h3>
+  </div>
+
+  <p class="profile-location-url">
+    <span>{{.GoodreadsUser.Location}}</span>
+    <span class="divider">·</span>
+    <span>{{.GoodreadsUser.About}}</span>
+  </p>
+</div>
+
+<ul class="profile-stats">
+  <li><a href="{{.GoodreadsUser.ReviewsLink}}"><strong>{{.GoodreadsUser.Reviews}}</strong> reviews</a></li>
+</ul>
+
+<div class="profile-info-footer">
+  <a href="{{.GoodreadsUser.Link}}" class="btn btn-warning btn-s">Goodreads profile</a>
+</div>

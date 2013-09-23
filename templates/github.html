@@ -1,0 +1,41 @@
+<div class="profile-info">
+  <a href="https://github.com/{{.GithubUser.Login}}" class="profile-avatar">
+    <img src="{{.GithubUser.AvatarURL}}"></img>
+  </a>
+  <div class="profile-name">
+    <h2><a href="https://github.com/{{.GithubUser.Login}}">{{.GithubUser.Name}}</a></h2>
+    <h3><a href="https://github.com/{{.GithubUser.Login}}">{{.GithubUser.Login}}</a></h3>
+  </div>
+
+  <p class="profile-location-url">
+    <span>{{.GithubUser.Location}}</span>
+    <span class="divider">·</span>
+    <span><a href="{{.GithubUser.Blog}}">{{.GithubUser.Blog}}</a></span>
+  </p>
+</div>
+
+<ul class="profile-stats">
+  <li><a href="https://github.com/{{.GithubUser.Login}}"><strong>{{.GithubUser.PublicRepos}}</strong> repos</a></li>
+  <li><a href="https://github.com/{{.GithubUser.Login}}/following"><strong>{{.GithubUser.Following}}</strong> following</a></li>
+  <li><a href="https://github.com/{{.GithubUser.Login}}/followers"><strong>{{.GithubUser.Followers}}</strong> followers</a></li>
+</ul>
+
+<div class="profile-info-footer">
+  <a href="https://github.com/{{.GithubUser.Login}}" class="btn btn-info btn-s">Github profile</a>
+</div>
+
+{{if .GithubRepos}}
+<ul class="profile-repos">
+  {{range .GithubRepos}}
+    <li>
+      <a href="{{.HTMLURL}}" class="profile-repo-name">{{.Name}}</a>
+      <p class="profile-repo-text">{{.Description}}</p>
+      <ul class="profile-repo-stats">
+        <li>{{.Language}}</li>
+        <li><a href="{{.HTMLURL}}/watchers" class="profile-watchers">{{.WatchersCount}}</a></li>
+        <li><a href="{{.HTMLURL}}/network" class="profile-forks">{{.ForksCount}}</a></li>
+      </ul>
+    </li>
+  {{end}}
+</ul>
+{{end}}

@@ -1,4 +1,10 @@
 {
-  "gapi_key": "key",
-  "gapi_secret": "secret"
+  "GAID": "google analytics id",
+  "ClientLimit": 5,
+  "LastfmUser": "user",
+  "LastfmKey": "key",
+  "GithubToken": "token",
+  "SteamUser": "community user",
+  "GoodreadsId": "id",
+  "GoodreadsKey": "key"
 }
