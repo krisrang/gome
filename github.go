@@ -30,7 +30,10 @@ func GithubUpdate(token string, limit int) (*github.User, *[]github.Repository) 
 	repos, _, _ := client.Repositories.List("", &github.RepositoryListOptions{Type: "public"})
 
 	sort.Sort(ReposByUpdated{Repos: repos})
-	repos = repos[:limit]
+
+	if len(repos) > limit {
+		repos = repos[:limit]
+	}
 
 	return user, &repos
 }
