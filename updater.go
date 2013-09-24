@@ -38,7 +38,7 @@ func setupUpdater() {
 func setup() {
 	lastfm.SetConfig(config.LastfmUser, config.LastfmKey)
 	steam.SetConfig(config.SteamUser, config.ClientLimit)
-	goodreads.SetConfig(config.GoodreadsId, config.GoodreadsKey)
+	goodreads.SetConfig(config.GoodreadsId, config.GoodreadsKey, config.ClientLimit)
 }
 
 func runTimer() {
