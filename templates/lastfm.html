@@ -16,6 +16,7 @@
 
 <ul class="profile-stats">
   <li><a href="{{.LastfmUser.URL}}"><strong>{{.LastfmUser.PlayCount}}</strong> plays</a></li>
+  <li><a href="{{.LastfmUser.URL}}/library/loved"><strong>{{.LastfmUser.LovedTracks}}</strong> loved tracks</a></li>
 </ul>
 
 <div class="profile-info-footer">
@@ -23,6 +24,9 @@
 </div>
 
 {{if .LastfmTracks}}
+<div class="profile-list-header">
+  Recently played tracks
+</div>
 <ul class="profile-tracks">
   {{range .LastfmTracks}}
     <li>

@@ -25,6 +25,9 @@
   <a href="{{.SteamUser.FullURL}}" class="btn btn-steam btn-s">Steam profile</a>
 </div>
 
+<div class="profile-list-header">
+  Recently played games
+</div>
 <ul class="profile-games">
   {{range .SteamGames.RecentlyPlayed.Games}}
     <li>
@@ -32,10 +35,9 @@
       <a href="{{.StoreLink}}" class="profile-game-name">{{.Name}}</a>
       <p class="profile-game-stats">
       {{if .HoursLast2Weeks}}
-        {{.HoursLast2Weeks}} hrs played last 2 weeks
-      {{else}}
-        {{.HoursOnRecord}} hrs played total
+        {{.HoursLast2Weeks}} hrs played last 2 weeks<br />
       {{end}}
+      {{.HoursOnRecord}} hrs played all time
       </p>
     </li>
   {{end}}

@@ -1,5 +1,6 @@
-See secrets.example for necessary environment variables.
+See config.json.example for necessary configuration.
 
-Last.fm tokens: http://www.last.fm/api/accounts
-Github tokens: https://github.com/settings/applications
-Goodreads tokens: http://www.goodreads.com/api
+API clients:
+* https://github.com/krisrang/go-lastfm
+* https://github.com/krisrang/go-steam
+* https://github.com/krisrang/go-goodreads

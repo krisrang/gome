@@ -121,8 +121,8 @@ ul.nav li.active a {
 
 .tab-outer.listening:before { left: 100px; }
 .tab-outer.hacking:before { left: 190px; }
-.tab-outer.playing:before { left: 270px; }
-.tab-outer.reading:before { left: 370px; }
+.tab-outer.playing:before { left: 280px; }
+.tab-outer.reading:before { left: 380px; }
 
 .tab-content {
   width: 500px;
@@ -246,6 +246,14 @@ ul.nav li.active a {
   color: #FFF;
 }
 
+.profile-list-header {
+  border-bottom: 1px solid #c2c2c2;
+  padding: 10px 15px;
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+}
+
 /* LASTFM */
 
 .profile-tracks {
@@ -362,16 +370,17 @@ ul.nav li.active a {
 
 .profile-game-name {
   font-weight: bold;
-  margin-left: 190px;
+  margin-left: 200px;
   display: block;
-  width: 270px;
+  width: 260px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .profile-game-stats {
-  margin-left: 190px;
+  margin-top: 10px;
+  margin-left: 200px;
   color: #888;
 }
 
