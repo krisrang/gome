@@ -15,13 +15,73 @@
 </div>
 
 <ul class="profile-stats">
-  <li><a href="{{.GoodreadsUser.ReviewsLink}}"><strong>{{.GoodreadsUser.Reviews}}</strong> reviews</a></li>
+  <li>
+    <a href="http://www.goodreads.com/review/list/{{.GoodreadsUser.ID}}/?shelf={{.GoodreadsUser.ReadShelf.Name}}">
+      <strong>{{.GoodreadsUser.ReadShelf.BookCount}}</strong> books read</a>
+  </li>
+  <li>
+    <a href="http://www.goodreads.com/review/list/{{.GoodreadsUser.ID}}/?shelf={{.GoodreadsUser.ReadingShelf.Name}}">
+      <strong>{{.GoodreadsUser.ReadingShelf.BookCount}}</strong> reading now</a>
+  </li>
+  <li>
+    <a href="http://www.goodreads.com/review/list/{{.GoodreadsUser.ID}}/?shelf={{.GoodreadsUser.ToReadShelf.Name}}">
+      <strong>{{.GoodreadsUser.ToReadShelf.BookCount}}</strong> to read</a>
+  </li>
 </ul>
 
 <div class="profile-info-footer">
   <a href="{{.GoodreadsUser.Link}}" class="btn btn-warning btn-s">Goodreads profile</a>
 </div>
 
+{{if .GoodreadsUser.Statuses}}
 <div class="profile-list-header">
-  Books read and reading
+  Currently reading
 </div>
+
+<ul class="profile-books">
+  {{range .GoodreadsUser.Statuses}}
+    <li>
+      <a class="profile-book-logo" href="{{.Book.Link}}"><img src="{{.Book.ImageURL}}"></img></a>
+      <a class="profile-book-name" href="{{.Book.Link}}">{{.Book.Title}}</a>
+      <a class="profile-book-author" href="{{.Book.Author.Link}}"><span>by</span> {{.Book.Author.Name}}</a>
+
+      <div class="profile-book-pages">{{.Page}} pages of {{.Book.NumPages}}</div>
+      <div class="profile-book-progress progress progress-striped">
+        <div class="progress-bar" role="progressbar" aria-valuenow="{{.Percent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{.Percent}}%;"></div>
+      </div>
+
+      <date class="profile-book-updated">Updated {{.UpdatedRelative}}</date>
+    </li>
+  {{end}}
+</ul>
+{{end}}
+
+{{if .GoodreadsUser.LastRead}}
+<div class="profile-list-header">
+  Last read
+</div>
+<ul class="profile-books">
+  {{range .GoodreadsUser.LastRead}}
+    <li>
+      <a class="profile-book-logo" href="{{.Book.Link}}"><img src="{{.Book.ImageURL}}"></img></a>
+      <a class="profile-book-name" href="{{.Book.Link}}">{{.Book.Title}}</a>
+      <a class="profile-book-author" href="{{.Book.Author.Link}}"><span>by</span> {{.Book.Author.Name}}</a>
+
+      <div class="profile-book-rating">
+        <a href="{{.Link}}">
+          {{range .FullStars}}
+            <i class="icon-star"></i> 
+          {{end}}
+          {{range .EmptyStars}}
+            <i class="icon-star-empty"></i>
+          {{end}}
+        </a>
+      </div>
+
+      {{if .ReadAt}}
+        <date class="profile-book-readat">Read {{.ReadAtShort}}</date>
+      {{end}}
+    </li>
+  {{end}}
+</ul>
+{{end}}

@@ -18,8 +18,8 @@ import (
 )
 
 const (
-	VERSION      = "0.0.1"
-	VERSIONFANCY = "Hairy Vermin"
+	VERSION      = "0.1.0"
+	VERSIONFANCY = "Jovial Gopher"
 )
 
 var (
@@ -30,8 +30,9 @@ var (
 )
 
 type Config struct {
-	GAID        string
-	ClientLimit int
+	GAID          string
+	ClientLimit   int
+	UpdateMinutes int
 
 	LastfmUser string
 	LastfmKey  string

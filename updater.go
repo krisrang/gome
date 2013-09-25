@@ -38,11 +38,11 @@ func setupUpdater() {
 func setup() {
 	lastfm.SetConfig(config.LastfmUser, config.LastfmKey)
 	steam.SetConfig(config.SteamUser, config.ClientLimit)
-	goodreads.SetConfig(config.GoodreadsId, config.GoodreadsKey, config.ClientLimit)
 }
 
 func runTimer() {
-	tick := time.Tick(15 * time.Minute)
+	fmt.Println("Updating every", config.UpdateMinutes, "minutes")
+	tick := time.Tick(time.Duration(config.UpdateMinutes) * time.Minute)
 	for now := range tick {
 		tock(now)
 	}
@@ -51,7 +51,7 @@ func runTimer() {
 func tock(now time.Time) {
 	fmt.Println("Running update", now)
 
-	GoodreadsUser = goodreads.GetUser()
+	GoodreadsUser = goodreads.GetUser(config.GoodreadsId, config.GoodreadsKey, config.ClientLimit)
 	fmt.Println("Goodreads updated", time.Now())
 
 	SteamUser = steam.GetUser()

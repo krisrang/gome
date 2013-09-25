@@ -384,6 +384,83 @@ ul.nav li.active a {
   color: #888;
 }
 
+/* BOOKS */
+
+
+.profile-books li {
+  padding: 10px 15px;
+  border-bottom: 1px solid #c2c2c2;
+  height: 110px;
+}
+
+.profile-book-logo {
+  float: left;
+  clear: both;
+}
+
+.profile-book-logo img {
+  border: 1px solid #888;
+  height: 90px;
+}
+
+.profile-book-name {
+  font-weight: bold;
+  margin-left: 80px;
+  display: block;
+  width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-book-name span {
+  font-weight: normal;
+  color: #888;
+  font-size: 12px;
+}
+
+.profile-book-author {
+  margin-left: 80px;
+  display: block;
+  width: 400px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-book-author span {
+  color: #888;
+  font-size: 12px;
+}
+
+.profile-book-progress {
+  margin: 15px 100px 0 80px;
+}
+
+.profile-book-pages {
+  float: right;
+  margin-top: 15px;
+  color: #888;
+  font-size: 12px;
+}
+
+.profile-book-updated {
+  display: block;
+  margin: 5px 0 0 80px;
+  color: #888;
+  font-size: 12px;
+}
+
+.profile-book-rating {
+  display: block;
+  margin-left: 80px;
+}
+
+.profile-book-readat {
+  display: block;
+  margin: 10px 0 0 80px;
+  color: #888;
+}
 
 /* FOOTER */
 
