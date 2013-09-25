@@ -7,23 +7,10 @@ import (
 	"github.com/krisrang/go-goodreads"
 	"github.com/krisrang/go-lastfm"
 	"github.com/krisrang/go-steam"
-
-	"github.com/google/go-github/github"
 )
 
 var (
 	LastTick time.Time
-
-	LastfmUser   *lastfm.UserInfo
-	LastfmTracks *[]lastfm.Track
-
-	GithubUser  *github.User
-	GithubRepos *[]github.Repository
-
-	SteamUser  *steam.User
-	SteamGames *steam.GamesList
-
-	GoodreadsUser *goodreads.User
 )
 
 func setupUpdater() {
@@ -51,20 +38,33 @@ func runTimer() {
 func tock(now time.Time) {
 	fmt.Println("Running update", now)
 
-	GoodreadsUser = goodreads.GetUser(config.GoodreadsId, config.GoodreadsKey, config.ClientLimit)
+	goodreadsuser := goodreads.GetUser(config.GoodreadsId, config.GoodreadsKey, config.ClientLimit)
 	fmt.Println("Goodreads updated", time.Now())
 
-	SteamUser = steam.GetUser()
-	SteamGames = steam.GetGames()
+	steamuser := steam.GetUser()
+	steamgames := steam.GetGames()
 	fmt.Println("Steam updated", time.Now())
 
-	LastfmUser = lastfm.GetUser()
-	LastfmTracks = lastfm.GetTracks(config.ClientLimit)
+	lastfmuser := lastfm.GetUser()
+	lastfmtracks := lastfm.GetTracks(config.ClientLimit)
 	fmt.Println("Last.fm updated", time.Now())
 
-	GithubUser, GithubRepos = GithubUpdate(config.GithubToken, config.ClientLimit)
+	githubuser, githubrepos := GithubUpdate(config.GithubToken, config.ClientLimit)
 	fmt.Println("Github updated", time.Now())
 
+	currentData = &PageData{
+		Config:        config,
+		LastfmUser:    lastfmuser,
+		LastfmTracks:  lastfmtracks,
+		GithubUser:    githubuser,
+		GithubRepos:   githubrepos,
+		SteamUser:     steamuser,
+		SteamGames:    steamgames,
+		GoodreadsUser: goodreadsuser,
+		AllSynced:     true,
+	}
+
 	LastTick = time.Now()
+
 	fmt.Println("Finished update", time.Now())
 }

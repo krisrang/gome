@@ -30,6 +30,7 @@
     <a href="https://github.com/krisrang">&#xf09b;<span> Github</span></a>
   </section>
   
+  {{if .AllSynced}}
   <section class="content">
     <ul class="nav nav-tabs">
       <li class="active"><a href="#listening" data-toggle="tab">Music</a></li>
@@ -40,49 +41,43 @@
 
     <div class="tab-outer listening">
       <div class="tab-content">
-
+        
+        {{if .LastfmUser}}
         <h2 class="mobile">Music</h2>
         
         <div class="tab-pane active" id="listening">
-          {{if .LastfmUser}}
-            {{template "lastfm.html" .}}
-          {{else}}
-            <span class="desktop">Currently updating...</span>
-          {{end}}
+          {{template "lastfm.html" .}}
         </div>
+        {{end}}
 
+        {{if .GithubUser}}
         <h2 class="mobile">Hacking</h2>
 
         <div class="tab-pane" id="hacking">
-          {{if .GithubUser}}
-            {{template "github.html" .}}
-          {{else}}
-            <span class="desktop">Currently updating...</span>
-          {{end}}
+          {{template "github.html" .}}
         </div>
+        {{end}}
 
+        {{if .SteamUser}}
         <h2 class="mobile">Playing</h2>
 
         <div class="tab-pane" id="playing">
-          {{if .SteamUser}}
-            {{template "steam.html" .}}
-          {{else}}
-            <span class="desktop">Currently updating...</span>
-          {{end}}
+          {{template "steam.html" .}}
         </div>
+        {{end}}
 
+        {{if .GoodreadsUser}}
         <h2 class="mobile">Reading</h2>
 
         <div class="tab-pane" id="reading">
-          {{if .GoodreadsUser}}
-            {{template "goodreads.html" .}}
-          {{else}}
-            <span class="desktop">Currently updating...</span>
-          {{end}}
+          {{template "goodreads.html" .}}
         </div>
+        {{end}}
+
       </div>
     </div>
   </section>
+  {{end}}
 
   <footer>Damn it, Jim! I'm a developer, not a designer!</footer>
 

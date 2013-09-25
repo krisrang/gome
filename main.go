@@ -26,7 +26,8 @@ var (
 	port        = flag.String("port", "4000", "Port gome will run under")
 	versionflag = flag.Bool("version", false, "Print version")
 
-	config *Config
+	config      *Config
+	currentData = &PageData{AllSynced: false}
 )
 
 type Config struct {
@@ -46,7 +47,8 @@ type Config struct {
 }
 
 type PageData struct {
-	Config *Config
+	Config    *Config
+	AllSynced bool
 
 	LastfmUser   *lastfm.UserInfo
 	LastfmTracks *[]lastfm.Track
@@ -66,17 +68,7 @@ func mainPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	p := &PageData{
-		Config:        config,
-		LastfmUser:    LastfmUser,
-		LastfmTracks:  LastfmTracks,
-		GithubUser:    GithubUser,
-		GithubRepos:   GithubRepos,
-		SteamUser:     SteamUser,
-		SteamGames:    SteamGames,
-		GoodreadsUser: GoodreadsUser,
-	}
-	renderTemplate(w, "index.html", p)
+	renderTemplate(w, "index.html", currentData)
 }
 
 func statusPage(w http.ResponseWriter, r *http.Request) {
