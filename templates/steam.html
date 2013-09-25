@@ -17,7 +17,7 @@
 
 <ul class="profile-stats">
   <li><a href="{{.SteamUser.FullURL}}/games"><strong>{{.SteamUser.GameCount}}</strong> games</a></li>
-  <li><a href="{{.SteamUser.FullURL}}"><strong>{{.SteamGames.HoursPlayed2Wk}}</strong> hours played last 2 weeks</a></li>
+  <li class="desktop"><a href="{{.SteamUser.FullURL}}"><strong>{{.SteamGames.HoursPlayed2Wk}}</strong> hours played last 2 weeks</a></li>
   <li><a href="{{.SteamUser.FullURL}}"><strong>{{.SteamUser.RatingDescription}}</strong> steam rating</a></li>
 </ul>
 
@@ -35,9 +35,9 @@
       <a href="{{.StoreLink}}" class="profile-game-name">{{.Name}}</a>
       <p class="profile-game-stats">
       {{if .HoursLast2Weeks}}
-        {{.HoursLast2Weeks}} hrs played last 2 weeks<br />
+        {{.HoursLast2Weeks}} hrs last 2 weeks<br />
       {{end}}
-      {{.HoursOnRecord}} hrs played all time
+      {{.HoursOnRecord}} hrs total
       </p>
     </li>
   {{end}}

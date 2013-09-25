@@ -7,6 +7,7 @@
   <meta name="description" content="Kristjan Rang's personal website">
   <meta name="author" content="Kristjan Rang">
   <meta name="viewport" content="width=device-width">
+  <meta property="og:image" content="/static/img/og.png"/> 
 
   <link rel="stylesheet" href="/static/css/bootstrap.css">
   <link rel="stylesheet" href="/static/css/main.css">
@@ -40,35 +41,43 @@
     <div class="tab-outer listening">
       <div class="tab-content">
 
+        <h2 class="mobile">Music</h2>
+        
         <div class="tab-pane active" id="listening">
           {{if .LastfmUser}}
             {{template "lastfm.html" .}}
           {{else}}
-            Couldn't contact Last.fm
+            <span class="desktop">Currently updating...</span>
           {{end}}
         </div>
+
+        <h2 class="mobile">Hacking</h2>
 
         <div class="tab-pane" id="hacking">
           {{if .GithubUser}}
             {{template "github.html" .}}
           {{else}}
-            Couldn't contact GitHub
+            <span class="desktop">Currently updating...</span>
           {{end}}
         </div>
+
+        <h2 class="mobile">Playing</h2>
 
         <div class="tab-pane" id="playing">
           {{if .SteamUser}}
             {{template "steam.html" .}}
           {{else}}
-            Couldn't contact Steam
+            <span class="desktop">Currently updating...</span>
           {{end}}
         </div>
+
+        <h2 class="mobile">Reading</h2>
 
         <div class="tab-pane" id="reading">
           {{if .GoodreadsUser}}
             {{template "goodreads.html" .}}
           {{else}}
-            Couldn't contact Goodreads
+            <span class="desktop">Currently updating...</span>
           {{end}}
         </div>
       </div>

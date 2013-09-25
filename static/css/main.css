@@ -83,22 +83,6 @@ ul.nav li.active a {
   padding-bottom: 20px;
 }
 
-@media (max-width: 520px) {
-  .content,
-  footer {
-    display: none;
-  }
-
-  .contact a {
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  .contact span {
-    display: inline;
-  }
-}
-
 .tab-outer {
   width: 510px;
   margin: 0 auto;
@@ -278,7 +262,7 @@ ul.nav li.active a {
 }
 
 .profile-tracks li a {
-  width: 400px;
+  max-width: 400px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -372,7 +356,7 @@ ul.nav li.active a {
   font-weight: bold;
   margin-left: 200px;
   display: block;
-  width: 260px;
+  max-width: 260px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -407,7 +391,7 @@ ul.nav li.active a {
   font-weight: bold;
   margin-left: 80px;
   display: block;
-  width: 400px;
+  max-width: 400px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -422,7 +406,7 @@ ul.nav li.active a {
 .profile-book-author {
   margin-left: 80px;
   display: block;
-  width: 400px;
+  max-width: 400px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -469,4 +453,59 @@ footer {
   color: #888;
   text-align: center;
   font-family: 'Contrail One', cursive;
+}
+
+/* RESPONSIVE */
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 520px) {
+  .mobile {
+    display: block;
+  }
+
+  .desktop {
+    display: none !important;
+  }
+
+  .contact a {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .contact span {
+    display: inline;
+  }
+
+  .content {
+    padding: 20px 0;
+    background: none;
+  }
+
+  ul.nav {
+    display: none;
+  }
+
+  .tab-outer, .tab-content {
+    width: auto;
+    margin: 0;
+  }
+
+  .tab-outer:before {
+    display: none;
+  }
+
+  .tab-content > .tab-pane {
+    display: block;
+    box-shadow: none;
+    border-top: 1px solid #CACACA;
+    border-bottom: 1px solid #CACACA;
+    margin-bottom: 50px;
+  }
+
+  .profile-game-stats {
+    margin-top: 0;
+  }
 }
