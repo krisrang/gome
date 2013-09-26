@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"runtime"
 
 	"github.com/krisrang/go-goodreads"
@@ -23,7 +24,6 @@ const (
 )
 
 var (
-	port        = flag.String("port", "4000", "Port gome will run under")
 	versionflag = flag.Bool("version", false, "Print version")
 
 	config      *Config
@@ -111,13 +111,14 @@ func loadConfig() *Config {
 }
 
 func setupServer() {
-	fmt.Println("Starting up http server on", *port)
+	port := +os.Getenv("PORT")
+	fmt.Println("Starting up http server on", port)
 
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
 	http.HandleFunc("/status", statusPage)
 	http.HandleFunc("/", mainPage)
 
-	err := http.ListenAndServe(":"+*port, nil)
+	err := http.ListenAndServe(":"+port, nil)
 
 	if err != nil {
 		log.Fatal(err)
