@@ -107,11 +107,19 @@ func loadConfig() *Config {
 		log.Fatal(err)
 	}
 
+	conf.GAID = os.GetEnv("GAID")
+	conf.LastfmUser = os.GetEnv("LASTFMUSER")
+	conf.LastfmKey = os.GetEnv("LASTFMKEY")
+	conf.GithubToken = os.GetEnv("GITHUBTOKEN")
+	conf.SteamUser = os.GetEnv("STEAMUSER")
+	conf.GoodreadsId = os.GetEnv("GOODREADSID")
+	conf.GoodreadsKey = os.GetEnv("GOODREADSKEY")
+
 	return &conf
 }
 
 func setupServer() {
-	port := +os.Getenv("PORT")
+	port := os.Getenv("PORT")
 	fmt.Println("Starting up http server on", port)
 
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
