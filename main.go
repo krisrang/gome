@@ -107,13 +107,13 @@ func loadConfig() *Config {
 		log.Fatal(err)
 	}
 
-	conf.GAID = os.GetEnv("GAID")
-	conf.LastfmUser = os.GetEnv("LASTFMUSER")
-	conf.LastfmKey = os.GetEnv("LASTFMKEY")
-	conf.GithubToken = os.GetEnv("GITHUBTOKEN")
-	conf.SteamUser = os.GetEnv("STEAMUSER")
-	conf.GoodreadsId = os.GetEnv("GOODREADSID")
-	conf.GoodreadsKey = os.GetEnv("GOODREADSKEY")
+	conf.GAID = os.Getenv("GAID")
+	conf.LastfmUser = os.Getenv("LASTFMUSER")
+	conf.LastfmKey = os.Getenv("LASTFMKEY")
+	conf.GithubToken = os.Getenv("GITHUBTOKEN")
+	conf.SteamUser = os.Getenv("STEAMUSER")
+	conf.GoodreadsId = os.Getenv("GOODREADSID")
+	conf.GoodreadsKey = os.Getenv("GOODREADSKEY")
 
 	return &conf
 }
