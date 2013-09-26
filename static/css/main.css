@@ -505,7 +505,21 @@ footer {
     margin-bottom: 50px;
   }
 
+  .tab-content > h2 {
+    margin: 5px;
+    text-align: left;
+    font-family: 'Contrail One', cursive;
+  }
+
   .profile-game-stats {
     margin-top: 0;
+  }
+
+  .profile-list-header,
+  .profile-repos,
+  .profile-books,
+  .profile-tracks,
+  .profile-games {
+    display: none;
   }
 }
