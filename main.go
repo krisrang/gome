@@ -79,7 +79,7 @@ func statusPage(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintln(w, "Last updater tick:", LastTick)
 }
 
-func renderTemplate(w http.ResponseWriter, tpl string, data *PageData) {
+func renderTemplate(w http.ResponseWriter, tpl string, data interface{}) {
 	t, err := template.ParseFiles("templates/"+tpl,
 		"templates/lastfm.html", "templates/github.html",
 		"templates/steam.html", "templates/goodreads.html")
